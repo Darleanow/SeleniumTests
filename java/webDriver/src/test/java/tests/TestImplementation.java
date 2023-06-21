@@ -62,4 +62,22 @@ public class TestImplementation {
                 HOME_URL,
                 driver.getCurrentUrl());
     }
+
+	@Test
+    public void testAddElementTodoApp() {
+        // Arrange
+        driver.get("https://lambdatest.github.io/sample-todo-app/");
+
+        // Act
+        WebElement sampletodotext= driver.findElement(By.id("sampletodotext"));
+        sampletodotext.click();
+        sampletodotext.sendKeys("test");
+
+        driver.findElement(By.id("addbutton")).click();
+
+        // Assert
+        WebElement newTodoElement = driver.findElement(By.cssSelector("li:last-child span"));
+        assertThat("The new element is not found", newTodoElement.getText() == "test");
+    }
+
 }
