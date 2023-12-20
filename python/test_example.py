@@ -2,10 +2,11 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities 
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 
 class WelcomePage:
-    ''' A Page Object to model the welcome page of Python '''
+    """A Page Object to model the welcome page of Python"""
 
     title = "Welcome to Python.org"
     url = "http://www.python.org"
@@ -33,13 +34,13 @@ class WelcomePage:
         return "No results found." not in self.driver.page_source
 
     class QueryField:
-        ''' A Page Element to model the query field of the welcome page '''
+        """A Page Element to model the query field of the welcome page"""
 
         def __init__(self, driver):
             self.driver = driver
 
         def __get_elem(self):
-            if not hasattr(self, 'elem'):
+            if not hasattr(self, "elem"):
                 self.elem = self.driver.find_element(By.CSS_SELECTOR, "[name='q']")
             return self.elem
 
@@ -53,28 +54,29 @@ class WelcomePage:
             input.send_keys(Keys.RETURN)
             return self
 
+
 class PythonOrgSearch(unittest.TestCase):
-    ''' A test class '''
+    """A test class"""
 
     def setUp(self):
-        ''' Executed before each test '''
-        #self.driver = = webdriver.Firefox()
-        #self.driver = webdriver.Chrome()
-        self.driver = webdriver.Remote(
-                command_executor='http://127.0.0.1:4444/wd/hub',
-                options=webdriver.ChromeOptions())
+        """Executed before each test"""
+        # self.driver = webdriver.Firefox()
+        self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Remote(
+        #        command_executor='http://127.0.0.1:4444/wd/hub',
+        #        options=webdriver.ChromeOptions())
 
     def tearDown(self):
-        ''' Executed after each test '''
+        """Executed after each test"""
         self.driver.close()
 
     def test_search_in_python_org(self):
-        ''' A test example :
-            1. Opens the python page
-            2. Check the page title
-            3. Enter a query in the search input
-            4. Check results are found '''
-        
+        """A test example :
+        1. Opens the python page
+        2. Check the page title
+        3. Enter a query in the search input
+        4. Check results are found"""
+
         page = WelcomePage(self.driver).go()
         assert page.get_title() == WelcomePage.title
         assert page.search("pycon").has_results()
@@ -82,4 +84,3 @@ class PythonOrgSearch(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

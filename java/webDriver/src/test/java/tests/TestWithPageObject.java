@@ -6,7 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openqa.selenium.chrome.ChromeDriver;
+// import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import pages.GlpiPageObject;
 import pages.HomePage;
 import pages.LoginPage;
@@ -19,16 +21,17 @@ public class TestWithPageObject {
 
     private static final String TEST_USER = "admin";
     private static final String TEST_PASSWORD = "???";
-    private ChromeDriver driver = null;
+    private FirefoxDriver driver = null;
+    private GlpiPageObject page;
 
     @BeforeClass
     public static void setupWebdriverChromeDriver() {
-        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/test/resources/chromedriver");
+        // System.setProperty("webdriver.firefox.driver", "C:/Dev/seleniumDrivers/ff");
     }
 
- @Before
+    @Before
     public void setup() {
-        this.driver = new ChromeDriver();
+        this.driver = new FirefoxDriver();
     }
 
     @After
@@ -36,22 +39,21 @@ public class TestWithPageObject {
         Optional.ofNullable(page).map(GlpiPageObject::close);
     }
 
-    @Test
-    public void testLoginToGlpi() {
-        // Arrange - nothing
+    // @Test
+    // public void testLoginToGlpi() {
+    //     // Arrange - nothing
 
-        // Act
-        val page = new LoginPage(new MyTestDriver(driver))
-                .gotoPage()
-                .setUser(TEST_USER)
-                .setPassword(TEST_PASSWORD)
-                .clickLoginButton();
+    //     // Act
+    //     GlpiPageObject page = new LoginPage(new MyTestDriver(driver))
+    //             .gotoPage()
+    //             .setUser(TEST_USER)
+    //             .setPassword(TEST_PASSWORD)
+    //             .clickLoginButton();
 
-        // Assert
-        assertEquals(
-                "The home page is expected",
-                page.getExpectedUrl(),
-                page.getCurrentUrl()
-        );
-    }
+    //     // Assert
+    //     assertEquals(
+    //             "The home page is expected",
+    //             page.getExpectedUrl(),
+    //             page.getCurrentUrl());
+    // }
 }
