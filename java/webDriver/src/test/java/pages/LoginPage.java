@@ -1,14 +1,11 @@
 package pages;
 
 import helpers.TestDriver;
-import helpers.TestElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 
-public class LoginPage extends GlpiPageObject {
+public class LoginPage extends FacadiaPageObject {
 
-    private static final String PAGE_URL = "https://tomavt.with16.glpi-network.cloud/index.php";
+    private static final String PAGE_URL = "http://localhost:5500/";
 
     public LoginPage(TestDriver driver) {
         super(driver, PAGE_URL);
@@ -20,17 +17,22 @@ public class LoginPage extends GlpiPageObject {
     }
 
     public LoginPage setUser(String username) {
-        driver.clickAndSendKeys(By.id("login_name"), username);
+        driver.clickAndSendKeys(By.id("user-email"), username);
         return this;
     }
 
     public LoginPage setPassword(String password) {
-        driver.clickAndSendKeys(By.cssSelector("input[type='password']"), password);
+        driver.clickAndSendKeys(By.id("user-password"), password);
         return this;
     }
 
     public HomePage clickLoginButton() {
-        driver.click(By.cssSelector("button[name='submit']"));
+        driver.click(By.cssSelector("button[type='submit']"));
+        return new HomePage(driver);
+    }
+
+    public HomePage loginUser(String username,String password) {
+        this.gotoPage().setUser(username).setPassword(password).clickLoginButton();
         return new HomePage(driver);
     }
 }

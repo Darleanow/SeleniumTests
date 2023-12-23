@@ -1,7 +1,7 @@
 package helpers;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
 
 public interface TestDriver {
 
@@ -18,4 +18,6 @@ public interface TestDriver {
     TestDriver newTestDriverInIFrame(By by);
 
     void quit();
+
+    WebDriver getUnderlyingDriver();
 }

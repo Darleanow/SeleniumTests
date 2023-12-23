@@ -81,4 +81,9 @@ public class MyTestDriver implements TestDriver {
         JavascriptExecutor jse = (JavascriptExecutor)this.driver;
         jse.executeScript("arguments[0].scrollIntoView(true);", element);
     }
+
+    @Override
+    public WebDriver getUnderlyingDriver() {
+        return this.driver;
+    }
 }
