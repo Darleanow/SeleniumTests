@@ -24,18 +24,13 @@ public class HomePage extends FacadiaPageObject {
     public TestElement clickFirstSensorInfoButton() {
         TestElement sensorButton = getContent(By.cssSelector(".sensor-info-btn:first-of-type"));
         sensorButton.click();
-        waitForElement(By.className("sensor-details"));
+        timeout(By.className("sensor-details"),10);
         return sensorButton;
     }
 
     public String getSensorDetailsTitleText() {
         TestElement sectionTitleElement = getContent(By.className("section-title"));
         return sectionTitleElement.getText();
-    }
-
-    private void waitForElement(By locator) {
-        WebDriverWait wait = new WebDriverWait((WebDriver) this.driver.getUnderlyingDriver(), 10);
-        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     public HomePage clickLogoutButton() {
